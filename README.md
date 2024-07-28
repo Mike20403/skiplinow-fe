@@ -43,19 +43,6 @@ Follow these steps to set up the project on your local machine:
     npm install
     ```
 
-3. **Set up Firebase:**
-
-    - Create a `.env` file in the root directory and add your Firebase configuration ( or you can run directly with my env configuration .env.development with Twilio and Firebase 've already been setted up )
-
-    ```env
-    REACT_APP_FIREBASE_API_KEY=your-api-key
-    REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-    REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-    REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
-    REACT_APP_FIREBASE_APP_ID=your-app-id
-    ```
-
 ## Running the Project
 
 To run the project locally, use the following command:
