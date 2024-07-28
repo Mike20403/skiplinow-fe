@@ -26,6 +26,8 @@ The Skiplinow Challenge is a project aimed at demonstrating a specific set of fu
 
 ![image](https://github.com/user-attachments/assets/5d65e660-e254-41a2-be69-9d26b97d6997)
 
+## Note: Because this project require a complex series of step to set things up, so i decided to provide you a vid for your convenient:
+[Demo](https://drive.google.com/file/d/1-Rso9G-W-qzYK1421MG8Vk-6kg8X-cMe/view?usp=sharing)
 
 ## Prerequisites
 
@@ -111,9 +113,6 @@ skiplinow-challenge/
 - **React Router**: A collection of navigational components for React applications.
 - **Shadcn**: A tailwindcss UI library.
 - **Zustand**: State management library.
-
-## Note: Because this project require a complex series of step to set things up, so i decided to provide you a vid for your convenient:
-[https://drive.google.com/file/d/1-Rso9G-W-qzYK1421MG8Vk-6kg8X-cMe/view?usp=sharing](Demo)
 
 ## License
 
