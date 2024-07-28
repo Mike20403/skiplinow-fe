@@ -2,6 +2,7 @@
 import create from 'zustand';
 import { fetchOTPCode, verifyOTPCode } from '@/apis/auth/auth.api';
 import { persist } from 'zustand/middleware';
+import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 export interface Credentials {
   phoneNumber?: string;
@@ -19,6 +20,7 @@ interface OTPStoreState {
   verifyOTP: (phoneNumber: string, code: string) => Promise<boolean>; // Adjust the type as needed
   fetchOTPCode: (phoneNumber: string) => Promise<any>; // Adjust the type as needed
   resetOTP: () => void;
+  logout: () => void; // function to reset the store
   initializeStore: () => void; // function to initialize the store from localStorage
 }
 
@@ -30,7 +32,10 @@ const useOTPStore = create(persist<OTPStoreState>((set, get) => ({
   },
   isOTPSent: false,
   isSendingOTP: false,
-
+  logout: () => {
+    set({ credentials: { phoneNumber: '', accessCode: null, expiresAt: null } });
+    localStorage.removeItem('otp-store');
+  },
   setCredentials: (payload: Credentials) => {
     const newCredentials = {
       ...get().credentials,
@@ -42,7 +47,9 @@ const useOTPStore = create(persist<OTPStoreState>((set, get) => ({
       const timeoutDuration = payload.expiresAt - Date.now();
       if (timeoutDuration > 0) {
         setTimeout(() => {
-          //get().logout();
+          set({ credentials: { ...newCredentials, accessCode: null } });
+          localStorage.removeItem('credentials');
+
         }, timeoutDuration);
       }
     }
@@ -56,7 +63,6 @@ const useOTPStore = create(persist<OTPStoreState>((set, get) => ({
     const savedCredentials = localStorage.getItem('credentials');
     if (savedCredentials) {
       const { credentials } = JSON.parse(savedCredentials);
-
       set({ credentials: JSON.parse(savedCredentials) });
       if (credentials.expiresAt && credentials.expiresAt < Date.now()) {
         set({ credentials: { ...credentials, accessCode: null } });

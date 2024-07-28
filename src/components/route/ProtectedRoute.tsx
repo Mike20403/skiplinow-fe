@@ -1,7 +1,7 @@
 // ProtectedRoute.tsx
 import useOTPStore from '@/stores/use-auth.store';
 import React, { useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -9,6 +9,8 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   const { credentials, initializeStore } = useOTPStore();
+  const navigate = useNavigate();
+
   useEffect(() => {
     initializeStore();
   }, [initializeStore]);
@@ -16,7 +18,17 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   if (!credentials.accessCode || !credentials.expiresAt || credentials.expiresAt < Date.now()) {
     // user is not authenticated
     return <Navigate to="/signup" />;
+  } else {
+    console.log('User is authenticated')
   }
+
+  console.log(credentials.expiresAt - Date.now());
+
+  setTimeout(() => {
+    console.log ('Redirecting to /signup');
+    navigate('/signup');
+    }, credentials.expiresAt - Date.now());
+
 
   return <>{children}</>;
 };

@@ -49,7 +49,7 @@ export const SideBar = (props: SideBarProps) => {
         {...props}
         className={`bg-appGray absolute h-full transition-transform duration-3000 ease-in-out 
         ${open ? 'translate-x-0 w-[25%]' : '-translate-x-[calc(100%-3.5rem)]'} 
-        max-w-[25%] flex flex-col h-[100vh] bg-white shadow-lg
+        min-w-[17rem] w-[25%] flex flex-col h-[100vh] bg-white shadow-lg
         ${className}`}
       >
         <a href="/" className={`sticky top-0 left-0 logo-section  flex flex-row justify-center items-center`}>

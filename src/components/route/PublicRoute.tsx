@@ -8,13 +8,14 @@ interface PublicRouteProps {
 }
 
 const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
-  const { credentials, initializeStore } = useOTPStore();
+  const { credentials, initializeStore, logout } = useOTPStore();
 
   useEffect(() => {
     initializeStore();
   }, [initializeStore]);
 
   if (credentials.accessCode && credentials.expiresAt && credentials.expiresAt > Date.now()) {
+    // user is authenticated
     return <Navigate to="/" />;
   }
 

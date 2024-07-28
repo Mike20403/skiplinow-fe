@@ -91,8 +91,9 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
         <div className="flex form-action w-full">
           <Button
             type="submit"
+            disabled={onVerificationSend}
             className={
-              'gap-4 text-[1rem] p-[1.5rem] bg-appPrimary hover:bg-appSecondary font-bold mx-auto min-w-[10rem]'
+              `gap-4 text-[1rem] p-[1.5rem] bg-appPrimary hover:bg-appSecondary font-bold mx-auto min-w-[10rem]`
             }
           >
             <ArrowPathIcon className={`${!onVerificationSend ? 'hidden' : 'animate-spin'} w-6 h-6`} />

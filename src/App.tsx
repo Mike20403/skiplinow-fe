@@ -46,8 +46,7 @@ function App() {
               <SMSAuthPage />
             </PublicRoute>
           }/>
-        // redirect route if no route is matched
-        <Route path="*" element={<Dashboard />} />
+        <Route path="*" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
       </Routes>
 
       <Toaster />
