@@ -22,7 +22,7 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
     mode: 'onSubmit',
     resolver: yupResolver(phoneValidationSchema),
   });
-  const { setOTP, setIsOTPSent, fetchOTPCode, resetOTP, setCredentials } = useOTPStore();
+  const { setIsOTPSent, fetchOTPCode, resetOTP, setCredentials } = useOTPStore();
   const { setToggleForm } = props;
   const [onVerificationSend, setOnVerificationSend] = useState(false);
   const { toast } = useToast();
@@ -32,9 +32,7 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
     setOnVerificationSend(true);
     //TODO call api to send verification code
     try {
-      const res = {
-        message: 'msg',
-      }; //await fetchOTPCode(data.phoneNumber);
+      const res = await fetchOTPCode(data.phoneNumber);
       toast({
         title: 'Success',
         variant: 'success',

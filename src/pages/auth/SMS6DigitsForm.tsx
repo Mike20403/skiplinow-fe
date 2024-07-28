@@ -26,7 +26,7 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
   const { setToggleForm } = props;
   const [count, setCount] = useState<number>(10);
   const [isCountDown, setIsCountDown] = useState<boolean>(false);
-  const { setOTP, setIsOTPSent, setCredentials, credentials } = useOTPStore();
+  const { setIsOTPSent, setCredentials, credentials } = useOTPStore();
   const { toast } = useToast();
   const navigate = useNavigate();
 

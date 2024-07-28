@@ -17,7 +17,7 @@ interface OTPStoreState {
   setIsOTPSent: (status: boolean) => void;
   setOnOTPSending: (status: boolean) => void;
   verifyOTP: (phoneNumber: string, code: string) => Promise<boolean>; // Adjust the type as needed
-  fetchOTPCode: (phoneNumber: string) => Promise<void>; // Adjust the type as needed
+  fetchOTPCode: (phoneNumber: string) => Promise<any>; // Adjust the type as needed
   resetOTP: () => void;
   initializeStore: () => void; // function to initialize the store from localStorage
 }
