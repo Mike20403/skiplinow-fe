@@ -18,6 +18,15 @@ This repository contains the implementation of the Skiplinow Challenge.
 
 The Skiplinow Challenge is a project aimed at demonstrating a specific set of functionalities using a modern tech stack. It includes features like generating captions for social media posts, saving and sharing these captions, and managing state efficiently.
 
+![image](https://github.com/user-attachments/assets/c1175cca-3b8f-4bd7-8e33-7393aaedb6c1)
+
+![image](https://github.com/user-attachments/assets/8cbb9dd3-e7fd-4b69-b0e0-3e6269863532)
+
+![image](https://github.com/user-attachments/assets/afc05137-8e7b-479a-a0a5-78052f57f072)
+
+![image](https://github.com/user-attachments/assets/5d65e660-e254-41a2-be69-9d26b97d6997)
+
+
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
