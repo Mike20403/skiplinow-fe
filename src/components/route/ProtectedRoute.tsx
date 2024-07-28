@@ -18,17 +18,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   if (!credentials.accessCode || !credentials.expiresAt || credentials.expiresAt < Date.now()) {
     // user is not authenticated
     return <Navigate to="/signup" />;
-  } else {
-    console.log('User is authenticated')
   }
 
-  console.log(credentials.expiresAt - Date.now());
-
   setTimeout(() => {
-    console.log ('Redirecting to /signup');
     navigate('/signup');
-    }, credentials.expiresAt - Date.now());
-
+    localStorage.removeItem('otp-store');
+  }, credentials.expiresAt - Date.now());
 
   return <>{children}</>;
 };

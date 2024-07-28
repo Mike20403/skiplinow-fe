@@ -2,7 +2,6 @@
 import create from 'zustand';
 import { fetchOTPCode, verifyOTPCode } from '@/apis/auth/auth.api';
 import { persist } from 'zustand/middleware';
-import { NavigateFunction, useNavigate } from 'react-router-dom';
 
 export interface Credentials {
   phoneNumber?: string;
@@ -24,62 +23,70 @@ interface OTPStoreState {
   initializeStore: () => void; // function to initialize the store from localStorage
 }
 
-const useOTPStore = create(persist<OTPStoreState>((set, get) => ({
-  credentials: {
-    phoneNumber: '',
-    accessCode: null,
-    expiresAt: null,
-  },
-  isOTPSent: false,
-  isSendingOTP: false,
-  logout: () => {
-    set({ credentials: { phoneNumber: '', accessCode: null, expiresAt: null } });
-    localStorage.removeItem('otp-store');
-  },
-  setCredentials: (payload: Credentials) => {
-    const newCredentials = {
-      ...get().credentials,
-      ...payload,
-    };
-    set({ credentials: newCredentials });
+const useOTPStore = create(
+  persist<OTPStoreState>(
+    (set, get) => ({
+      credentials: {
+        phoneNumber: '',
+        accessCode: null,
+        expiresAt: null,
+      },
+      isOTPSent: false,
+      isSendingOTP: false,
+      logout: () => {
+        set({ credentials: { phoneNumber: '', accessCode: null, expiresAt: null } });
+        localStorage.removeItem('otp-store');
+      },
+      setCredentials: (payload: Credentials) => {
+        const newCredentials = {
+          ...get().credentials,
+          ...payload,
+        };
+        set({ credentials: newCredentials });
 
-    if (payload.expiresAt) {
-      const timeoutDuration = payload.expiresAt - Date.now();
-      if (timeoutDuration > 0) {
-        setTimeout(() => {
-          set({ credentials: { ...newCredentials, accessCode: null } });
-          localStorage.removeItem('credentials');
-
-        }, timeoutDuration);
-      }
-    }
-  },
-  setIsOTPSent: (status: boolean) => set({ isOTPSent: status }),
-  setOnOTPSending: (status: boolean) => set({ isSendingOTP: status }),
-  verifyOTP: verifyOTPCode,
-  fetchOTPCode: fetchOTPCode,
-  resetOTP: () => set({ isOTPSent: false }),
-  initializeStore: () => {
-    const savedCredentials = localStorage.getItem('credentials');
-    if (savedCredentials) {
-      const { credentials } = JSON.parse(savedCredentials);
-      set({ credentials: JSON.parse(savedCredentials) });
-      if (credentials.expiresAt && credentials.expiresAt < Date.now()) {
-        set({ credentials: { ...credentials, accessCode: null } });
-        localStorage.removeItem('credentials');
-      } else if (credentials.expiresAt) {
-        const timeoutDuration = credentials.expiresAt - Date.now();
-        if (timeoutDuration > 0) {
-          setTimeout(() => {
-            set({ credentials: { ...credentials, accessCode: null } });
-            localStorage.removeItem('credentials');
-          }, timeoutDuration);
+        if (payload.expiresAt) {
+          const timeoutDuration = payload.expiresAt - Date.now();
+          if (timeoutDuration > 0) {
+            setTimeout(() => {
+              set({ credentials: { ...newCredentials, accessCode: null } });
+              localStorage.removeItem('otp-store');
+            }, timeoutDuration);
+          }
         }
-      }
-    }
-  },
-}), {
-  name: 'otp-store'
-}));
+      },
+      setIsOTPSent: (status: boolean) => set({ isOTPSent: status }),
+      setOnOTPSending: (status: boolean) => set({ isSendingOTP: status }),
+      verifyOTP: verifyOTPCode,
+      fetchOTPCode: fetchOTPCode,
+      resetOTP: () => set({ isOTPSent: false }),
+      initializeStore: () => {
+        const otpStore = localStorage.getItem('otp-store');
+        const { state } = JSON.parse(otpStore || '{}');
+        const savedCredentials = state?.credentials
+
+        if (savedCredentials) {
+          set({ credentials: savedCredentials });
+
+
+          if (savedCredentials.expiresAt && savedCredentials.expiresAt < Date.now()) {
+            set({ credentials: { ...savedCredentials, accessCode: null } });
+            localStorage.removeItem('otp-store');
+          } else if (savedCredentials.expiresAt && savedCredentials.expiresAt > Date.now()) {
+            const timeoutDuration = savedCredentials.expiresAt - Date.now();
+            if (timeoutDuration > 0) {
+              setTimeout(() => {
+                set({ credentials: { ...savedCredentials, accessCode: null } });
+                localStorage.removeItem('otp-store');
+              }, timeoutDuration);
+            }
+          }
+        }
+      },
+    }),
+    {
+      name: 'otp-store',
+    },
+  ),
+);
 
 export default useOTPStore;

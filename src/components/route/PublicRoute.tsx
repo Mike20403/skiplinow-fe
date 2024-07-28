@@ -8,7 +8,7 @@ interface PublicRouteProps {
 }
 
 const PublicRoute: React.FC<PublicRouteProps> = ({ children }) => {
-  const { credentials, initializeStore, logout } = useOTPStore();
+  const { credentials, initializeStore } = useOTPStore();
 
   useEffect(() => {
     initializeStore();
