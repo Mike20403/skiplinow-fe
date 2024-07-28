@@ -1,5 +1,5 @@
-import { PhoneNumberForm } from '@/components/form/phone-number-form';
-import { SMS6DigitsForm } from '@/components/form/sms-digits-form';
+import { PhoneNumberForm } from '@/pages/auth/PhoneNumberForm.tsx';
+import { SMS6DigitsForm } from '@/pages/auth/SMS6DigitsForm.tsx';
 import { WhaleLogo } from '@/components/logo/WhaleLogo';
 import { useState } from 'react';
 

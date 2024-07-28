@@ -1,5 +1,5 @@
-import { LoginForm } from '@/components/form/login-form';
-import { RegisterForm } from '@/components/form/register-form';
+import { LoginForm } from '@/components/form/LoginForm';
+import { RegisterForm } from '@/components/form/RegisterForm';
 import { useState } from 'react';
 
 export const LoginPages = () => {

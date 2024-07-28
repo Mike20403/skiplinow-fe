@@ -1,10 +1,14 @@
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui/button.tsx';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp';
+import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp.tsx';
 import { useEffect, useState } from 'react';
-import { sms6digitsValidationSchema } from '@/validates/sms-auth.validator';
-import useOTPStore from '@/stores/use-auth.store';
+import { sms6digitsValidationSchema } from '@/validates/sms-auth.validator.ts';
+import useOTPStore from '@/stores/use-auth.store.ts';
+import { verifyOTPCode } from '@/apis/auth/auth.api.ts';
+import { useToast } from '../../components/ui/use-toast.ts';
+import { maskPhoneNumber } from '@/utils/string.utils.ts';
+import { useNavigate } from 'react-router-dom';
 
 export interface SMS6DigitsFormProps {
   setToggleForm: (value: boolean) => void;
@@ -14,7 +18,6 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     mode: 'all',
@@ -23,11 +26,32 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
   const { setToggleForm } = props;
   const [count, setCount] = useState<number>(10);
   const [isCountDown, setIsCountDown] = useState<boolean>(false);
-  const { setOTP, setIsOTPSent, fetchOTPCode } = useOTPStore();
+  const { setOTP, setIsOTPSent, setCredentials, credentials } = useOTPStore();
+  const { toast } = useToast();
+  const navigate = useNavigate();
 
   let intervalId: NodeJS.Timeout | null = null;
-  const handleSMSVerify = (data: any) => {
+  const handleSMSVerify = async (data: any) => {
     //TODO call api to send verification code
+    try {
+      const res = await verifyOTPCode(credentials?.phoneNumber, data.smsCode);
+
+      if (res && res.result) {
+        setCredentials({ ...credentials, accessCode: res.result.accessCode, expiresAt: res.result.expiresAt });
+        toast({
+          title: 'Success',
+          variant: 'success',
+          description: res.message,
+        });
+        navigate('/');
+      }
+    } catch (error: unknown) {
+      toast({
+        title: 'Error',
+        variant: 'destructive',
+        description: error.response.data.message,
+      });
+    }
   };
 
   const handleResendCode = (e: any) => {
@@ -56,6 +80,7 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
   }, []);
   return (
     <>
+      <p className="text-[text-gray-400]">A 6-digits code was sent to {maskPhoneNumber(credentials.phoneNumber)}</p>
       <form className="flex flex-col gap-[4rem] max-w-[30rem] smsauth-form" onSubmit={handleSubmit(handleSMSVerify)}>
         <div className="flex gap-4 flex-col">
           <p className="font-bold">One-Time password:</p>

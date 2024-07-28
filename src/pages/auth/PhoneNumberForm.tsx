@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button';
-import { phoneValidationSchema } from '@/validates/sms-auth.validator';
+import { Button } from '@/components/ui/button.tsx';
+import { phoneValidationSchema } from '@/validates/sms-auth.validator.ts';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { PhoneInput } from '../inputs/PhoneInput';
+import { PhoneInput } from '../../components/inputs/PhoneInput.tsx';
 import { ArrowPathIcon } from '@heroicons/react/16/solid';
-import useOTPStore from '@/stores/use-auth.store';
-import { useToast } from '../ui/use-toast';
+import useOTPStore from '@/stores/use-auth.store.ts';
+import { useToast } from '../../components/ui/use-toast.ts';
 
 export interface PhoneNumberFormProps {
   setToggleForm: (value: boolean) => void;
@@ -22,7 +22,7 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
     mode: 'onSubmit',
     resolver: yupResolver(phoneValidationSchema),
   });
-  const { setOTP, setIsOTPSent, fetchOTPCode, resetOTP } = useOTPStore();
+  const { setOTP, setIsOTPSent, fetchOTPCode, resetOTP, setCredentials } = useOTPStore();
   const { setToggleForm } = props;
   const [onVerificationSend, setOnVerificationSend] = useState(false);
   const { toast } = useToast();
@@ -32,8 +32,9 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
     setOnVerificationSend(true);
     //TODO call api to send verification code
     try {
-      const res = '2'; //await fetchOTPCode(data.phoneNumber);
-      console.log(res);
+      const res = {
+        message: 'msg',
+      }; //await fetchOTPCode(data.phoneNumber);
       toast({
         title: 'Success',
         variant: 'success',
@@ -43,18 +44,23 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
       if (res && res.message) {
         toast({
           title: 'Success',
+          variant: 'success',
           description: res.message,
         });
+
+        setToggleForm(true);
+      } else {
+        throw new Error('Failed to send verification code');
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast({
         title: 'Error',
         variant: 'destructive',
         description: error.message,
       });
     }
+    setCredentials({ phoneNumber: data.phoneNumber });
     setOnVerificationSend(false);
-    setToggleForm(true);
   };
 
   const handleKeyDown = async (e: any) => {
@@ -87,7 +93,9 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
         <div className="flex form-action w-full">
           <Button
             type="submit"
-            className={'text-[1rem] p-[1.5rem] bg-appPrimary hover:bg-appSecondary font-bold mx-auto min-w-[10rem]'}
+            className={
+              'gap-4 text-[1rem] p-[1.5rem] bg-appPrimary hover:bg-appSecondary font-bold mx-auto min-w-[10rem]'
+            }
           >
             <ArrowPathIcon className={`${!onVerificationSend ? 'hidden' : 'animate-spin'} w-6 h-6`} />
             Continue
