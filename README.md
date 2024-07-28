@@ -1,5 +1,3 @@
-Sure! Here's a sample `README.md` for your Skiplinow Challenge project:
-
 ---
 
 # Skiplinow Challenge
@@ -26,6 +24,7 @@ Before you begin, ensure you have met the following requirements:
 
 - Node.js and npm (Node Package Manager) installed. You can download them from [Node.js official website](https://nodejs.org/).
 - Firebase project setup for backend services. You can create a new project on the [Firebase Console](https://console.firebase.google.com/).
+- Twilio is required in this repository for SMS verification.
 
 ## Installation
 
