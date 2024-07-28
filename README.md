@@ -73,8 +73,6 @@ Here is an overview of the project structure:
 ```plaintext
 skiplinow-challenge/
 ├── public/
-│   ├── index.html
-│   └── ...
 ├── src/
 │   ├── apis/
 │   │   └── auth/
@@ -82,7 +80,7 @@ skiplinow-challenge/
 │   ├── components/
 │   │   ├── cards/
 │   │   │   └── CaptionCard.tsx
-│   │   ├── ui/
+│   │   ├── ui/  // shadcn ui lib
 │   │   │   ├── button.tsx
 │   │   │   ├── input.tsx
 │   │   │   └── select.tsx
