@@ -100,6 +100,8 @@ skiplinow-challenge/
 - **Yup**: A JavaScript schema builder for value parsing and validation.
 - **Tailwind CSS**: A utility-first CSS framework.
 - **React Router**: A collection of navigational components for React applications.
+- **Shadcn**: A tailwindcss UI library.
+- **Zustand**: State management library.
 
 ## License
 
