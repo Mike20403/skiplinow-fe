@@ -112,6 +112,9 @@ skiplinow-challenge/
 - **Shadcn**: A tailwindcss UI library.
 - **Zustand**: State management library.
 
+## Note: Because this project require a complex series of step to set things up, so i decided to provide you a vid for your convenient:
+[https://drive.google.com/file/d/1-Rso9G-W-qzYK1421MG8Vk-6kg8X-cMe/view?usp=sharing](Demo)
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
