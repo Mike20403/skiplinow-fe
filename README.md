@@ -18,6 +18,15 @@ This repository contains the implementation of the Skiplinow Challenge.
 
 The Skiplinow Challenge is a project aimed at demonstrating a specific set of functionalities using a modern tech stack. It includes features like generating captions for social media posts, saving and sharing these captions, and managing state efficiently.
 
+![image](https://github.com/user-attachments/assets/c1175cca-3b8f-4bd7-8e33-7393aaedb6c1)
+
+![image](https://github.com/user-attachments/assets/8cbb9dd3-e7fd-4b69-b0e0-3e6269863532)
+
+![image](https://github.com/user-attachments/assets/afc05137-8e7b-479a-a0a5-78052f57f072)
+
+![image](https://github.com/user-attachments/assets/5d65e660-e254-41a2-be69-9d26b97d6997)
+
+
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
@@ -33,7 +42,7 @@ Follow these steps to set up the project on your local machine:
 1. **Clone the repository:**
 
     ```bash
-    git clone [https://github.com/yourusername/skiplinow-challenge.git](https://github.com/Mike20403/skipli-fe)
+    git clone https://github.com/yourusername/skiplinow-challenge.git](https://github.com/Mike20403/skipli-fe
     cd skiplinow-challenge
     ```
 
@@ -41,19 +50,6 @@ Follow these steps to set up the project on your local machine:
 
     ```bash
     npm install
-    ```
-
-3. **Set up Firebase:**
-
-    - Create a `.env` file in the root directory and add your Firebase configuration ( or you can run directly with my env configuration .env.development with Twilio and Firebase 've already been setted up )
-
-    ```env
-    REACT_APP_FIREBASE_API_KEY=your-api-key
-    REACT_APP_FIREBASE_AUTH_DOMAIN=your-auth-domain
-    REACT_APP_FIREBASE_PROJECT_ID=your-project-id
-    REACT_APP_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-    REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your-messaging-sender-id
-    REACT_APP_FIREBASE_APP_ID=your-app-id
     ```
 
 ## Running the Project
@@ -73,8 +69,6 @@ Here is an overview of the project structure:
 ```plaintext
 skiplinow-challenge/
 ├── public/
-│   ├── index.html
-│   └── ...
 ├── src/
 │   ├── apis/
 │   │   └── auth/
@@ -82,7 +76,7 @@ skiplinow-challenge/
 │   ├── components/
 │   │   ├── cards/
 │   │   │   └── CaptionCard.tsx
-│   │   ├── ui/
+│   │   ├── ui/  // shadcn ui lib
 │   │   │   ├── button.tsx
 │   │   │   ├── input.tsx
 │   │   │   └── select.tsx
@@ -115,6 +109,8 @@ skiplinow-challenge/
 - **Yup**: A JavaScript schema builder for value parsing and validation.
 - **Tailwind CSS**: A utility-first CSS framework.
 - **React Router**: A collection of navigational components for React applications.
+- **Shadcn**: A tailwindcss UI library.
+- **Zustand**: State management library.
 
 ## License
 
