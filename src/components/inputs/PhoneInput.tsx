@@ -65,7 +65,7 @@ type CountrySelectProps = {
   options: CountrySelectOption[];
 };
 
-const CountrySelect = ({ disabled, value, onChange, options }: CountrySelectProps) => {
+const CountrySelect = ({ disabled, value, onChange, options, ...props }: CountrySelectProps) => {
   const handleSelect = React.useCallback(
     (country: RPNInput.Country) => {
       onChange(country);
@@ -80,7 +80,7 @@ const CountrySelect = ({ disabled, value, onChange, options }: CountrySelectProp
           type="button"
           variant={'outline'}
           className={cn(
-            'flex h-[var(--input-height)] gap-2 border-y-2 border-l-2 border-appPrimary rounded-e-none rounded-s-md px-3',
+            'flex h-[2rem] sm:h-[var(--input-height)] gap-2 border-y-2 border-l-2 border-appPrimary rounded-e-none rounded-s-md px-3',
           )}
           disabled={disabled}
         >
@@ -104,9 +104,9 @@ const CountrySelect = ({ disabled, value, onChange, options }: CountrySelectProp
                       onSelect={() => handleSelect(option.value)}
                     >
                       <FlagComponent country={option.value} countryName={option.label} />
-                      <span className="flex-1 text-xl">{option.label}</span>
+                      <span className="flex-1 text-xs sm:text-xl">{option.label}</span>
                       {option.value && (
-                        <span className="text-foreground/50 text-xl">
+                        <span className="text-foreground/50 text-xs sm:text-xl">
                           {`+${RPNInput.getCountryCallingCode(option.value)}`}
                         </span>
                       )}

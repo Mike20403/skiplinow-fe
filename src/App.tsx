@@ -1,5 +1,5 @@
 import { ToastContainer } from 'react-toastify';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Dashboard } from './pages/Dashboard.tsx';
 import { SMSAuthPage } from './pages/auth/SMSAuthPage';
 import { Toaster } from './components/ui/toaster';
@@ -15,7 +15,7 @@ import './index.css';
 
 function App() {
   return (
-    <>
+    <div className="root">
       <Routes>
         <Route
           path=""
@@ -25,6 +25,7 @@ function App() {
             </ProtectedRoute>
           }
         >
+          <Route path="" element={<Navigate to={'/services'} />} />
           <Route path="services" element={<CaptionGeneratePage />}>
             <Route index element={<CaptionGenerateHomePage />} />
             <Route path="medias" element={<ChooseMediaPage />} />
@@ -53,7 +54,7 @@ function App() {
       </Routes>
       <Toaster />
       <ToastContainer closeOnClick />
-    </>
+    </div>
   );
 }
 

@@ -22,7 +22,7 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
     mode: 'onSubmit',
     resolver: yupResolver(phoneValidationSchema),
   });
-  const { setIsOTPSent, fetchOTPCode, resetOTP, setCredentials } = useOTPStore();
+  const { setCredentials } = useOTPStore();
   const { setToggleForm } = props;
   const [onVerificationSend, setOnVerificationSend] = useState(false);
   const { toast } = useToast();
@@ -32,7 +32,9 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
     setOnVerificationSend(true);
     //TODO call api to send verification code
     try {
-      const res = await fetchOTPCode(data.phoneNumber);
+      const res = {
+        message: true,
+      }; //await fetchOTPCode(data.phoneNumber);
       toast({
         title: 'Success',
         variant: 'success',
@@ -71,30 +73,30 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
 
   return (
     <>
-      <form className="flex flex-col gap-[5rem] max-w-[30rem] smsauth-form" onSubmit={handleSubmit(handleSMSSubmit)}>
+      <form className="flex flex-col gap-[2rem] sm:gap-[5rem] smsauth-form" onSubmit={handleSubmit(handleSMSSubmit)}>
         <div className="flex flex-col gap-4">
           <PhoneInput
             international={true}
             {...register('phoneNumber', { required: true })}
             numberInputProps={{
               onKeyDown: handleKeyDown,
-              className: errors.phoneNumber ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : '',
+              className: `${errors.phoneNumber ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}
+text-[0.8rem] h-[2rem] sm:h-[3rem] sm:text-[1rem]
+`,
             }}
             placeholder="Enter your phone number"
             className="mt-2 border-appPrimary"
           />{' '}
-          <p className="mx-0 font-[400] text-gray-600 text-sm inline-flex w-100">
+          <p className="hidden sm:inline-flex mx-0 font-[400] text-gray-600 text-sm w-100">
             Type in your phone number to receive a verification code that then is used to login to WhaleAI
           </p>
-          <p className="text-red-500">{errors.phoneNumber?.message}</p>
+          <p className="text-xs text-red-500">{errors.phoneNumber?.message}</p>
         </div>
         <div className="flex form-action w-full">
           <Button
             type="submit"
             disabled={onVerificationSend}
-            className={
-              `gap-4 text-[1rem] p-[1.5rem] bg-appPrimary hover:bg-appSecondary font-bold mx-auto min-w-[10rem]`
-            }
+            className={`gap-4 text-[0.7rem] sm:text-[1rem] p-1 sm:p-[1.5rem] bg-appPrimary hover:bg-appSecondary font-bold mx-auto min-w-[10rem]`}
           >
             <ArrowPathIcon className={`${!onVerificationSend ? 'hidden' : 'animate-spin'} w-6 h-6`} />
             Continue

@@ -13,62 +13,76 @@ export interface SideBarProps {
 }
 
 export const SideBar = (props: SideBarProps) => {
-  const { open: initialState = true, className} = props;
+  const { open: initialState = true, className } = props;
   const [open, setOpen] = useState(initialState);
   const [active, setActive] = useState('services');
-  const { setCredentials } = useOTPStore()
+  const { setCredentials } = useOTPStore();
   const navigate = useNavigate();
 
   const items = [
-    { id: 'services',icon: <CubeTransparentIcon />, title: 'Service', outlet: 'services' },
-    { id: 'profile',icon: <UserIcon/>, title: 'Profile', outlet: 'profile'},
-  ]
+    { id: 'services', icon: <CubeTransparentIcon />, title: 'Service', outlet: 'services' },
+    { id: 'profile', icon: <UserIcon />, title: 'Profile', outlet: 'profile' },
+  ];
 
-  const handleItemClick = useCallback((id:string) => {
+  const handleItemClick = useCallback((id: string) => {
     setActive(id);
     navigate(id);
-  },[])
+  }, []);
 
   const handleLogout = useCallback(() => {
-    console.log('test')
+    console.log('test');
     setCredentials({
       phoneNumber: '',
-        accessCode: null,
-        expiresAt: null,
-    },)
+      accessCode: null,
+      expiresAt: null,
+    });
     localStorage.clear();
     navigate('/signup');
-  },[])
+  }, []);
   const toggleSidebar = () => {
     setOpen(!open);
-  }
+  };
 
   return (
     <>
       <div
         {...props}
         className={`bg-appGray absolute h-full transition-transform duration-3000 ease-in-out 
-        ${open ? 'translate-x-0 w-[25%]' : '-translate-x-[calc(100%-3.5rem)]'} 
-        min-w-[17rem] w-[25%] flex flex-col h-[100vh] bg-white shadow-lg
+        ${open ? 'translate-x-0 w-[25%]' : '-translate-x-[calc(100%-3.5rem)] md:-translate-x-[calc(100%-3.5rem)]'} min-w-[7rem] md:min-w-[17rem] w-[25%] flex flex-col h-[100vh] bg-white shadow-lg
         ${className}`}
       >
-        <a href="/" className={`sticky top-0 left-0 logo-section  flex flex-row justify-center items-center`}>
-          <h1 className={` ${!open ? 'hidden' : ''} translate-x-1 text-appPrimary inline-block text-3xl font-bold`}>
+        <a
+          href="/"
+          className={`min-w-[4rem] sticky top-0 left-0 logo-section flex flex-row justify-center items-center`}
+        >
+          <h1
+            className={` ${!open ? 'hidden' : 'hidden md:block'} translate-x-1 text-appPrimary text-xl md:text-3xl font-bold`}
+          >
             Whale.AI
           </h1>
-          <SideBarLogo className={` ${!open ? 'hidden' : ''} translate-y-1 fill-appPrimary h-full`} />
+          <SideBarLogo className={` ${!open ? 'hidden' : ''} translate-y-1 fill-appPrimary`} />
         </a>
         <hr />
         <div className="flex flex-row h-full items-center justify-between">
           <div className="flex flex-col item-wrapper flex-1 h-full justify-between">
             <div className="item-group">
-              {
-                items.map((item, index) => (
-                  <SideBarItem  onClick={() => handleItemClick(item.id)} active={active === item.id} key={index} {...item} />))
-              }
+              {items.map((item, index) => (
+                <SideBarItem
+                  onClick={() => handleItemClick(item.id)}
+                  active={active === item.id}
+                  key={index}
+                  {...item}
+                />
+              ))}
             </div>
             <div className="item-group">
-              <SideBarItem onClick={() => handleLogout()} active={active === 'logout'} icon={<ArrowLeftEndOnRectangleIcon />} title="Logout" id="logout" />
+              <SideBarItem
+                onClick={() => handleLogout()}
+                active={active === 'logout'}
+                icon={<ArrowLeftEndOnRectangleIcon />}
+                title="Logout"
+                id="logout"
+              />
             </div>
           </div>
           <Button

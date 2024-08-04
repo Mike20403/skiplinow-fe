@@ -80,22 +80,28 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
   }, []);
   return (
     <>
-      <p className="text-[text-gray-400]">A 6-digits code was sent to {maskPhoneNumber(credentials.phoneNumber)}</p>
+      <p className="text-xs text-[text-gray-400]">
+        A 6-digits code was sent to {maskPhoneNumber(credentials.phoneNumber)}
+      </p>
       <form className="flex flex-col gap-[4rem] max-w-[30rem] smsauth-form" onSubmit={handleSubmit(handleSMSVerify)}>
         <div className="flex gap-4 flex-col">
-          <p className="font-bold">One-Time password:</p>
-          <div className="flex flex-row items-center gap-4">
+          <p className="text-[1rem] font-bold">One-Time password:</p>
+          <div className="flex flex-row justify-between items-center gap-4 max-w-full ">
             <InputOTP {...register('smsCode')} maxLength={6}>
               <InputOTPGroup>
-                <InputOTPSlot className="w-[4rem] h-[3rem]" index={0} />
-                <InputOTPSlot className="w-[4rem] h-[3rem]" index={1} />
-                <InputOTPSlot className="w-[4rem] h-[3rem]" index={2} />
-                <InputOTPSlot className="w-[4rem] h-[3rem]" index={3} />
-                <InputOTPSlot className="w-[4rem] h-[3rem]" index={4} />
-                <InputOTPSlot className="w-[4rem] h-[3rem]" index={5} />{' '}
+                <InputOTPSlot className="w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[3rem]" index={0} />
+                <InputOTPSlot className="w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[3rem]" index={1} />
+                <InputOTPSlot className="w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[3rem]" index={2} />
+                <InputOTPSlot className="w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[3rem]" index={3} />
+                <InputOTPSlot className="w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[3rem]" index={4} />
+                <InputOTPSlot className="w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[3rem]" index={5} />{' '}
               </InputOTPGroup>
             </InputOTP>
-            <a onClick={handleResendCode} hidden={isCountDown} className="cursor-pointer text-appPrimary text-sm">
+            <a
+              onClick={handleResendCode}
+              hidden={isCountDown}
+              className="leading-3 text-[0.6rem] cursor-pointer text-appPrimary sm:text-sm"
+            >
               Resend code
             </a>
             <p hidden={!isCountDown} className="text-sm">
@@ -103,7 +109,7 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
             </p>
           </div>
           <p className="text-xs text-gray-400">Please enter your one-time password sent to your phone.</p>
-          <p className="text-red-500">{errors.smsCode?.message}</p>
+          <p className="text-xs text-red-500">{errors.smsCode?.message}</p>
         </div>
         <div className="flex form-action w-full">
           <Button
@@ -111,13 +117,17 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
             onClick={() => {
               setToggleForm(false);
             }}
-            className={'text-[1rem] p-[1.5rem] bg-appSecondary font-bold hover:bg-appTertiary mx-auto min-w-[10rem]'}
+            className={
+              'w-[5rem] text-[0.8rem] sm:text-[1rem] sm:p-[1.5rem] bg-appSecondary font-bold hover:bg-appTertiary mx-auto sm:min-w-[10rem]'
+            }
           >
             Back
           </Button>{' '}
           <Button
             type="submit"
-            className={'text-[1rem] p-[1.5rem] bg-appPrimary font-bold hover:bg-appSecondary mx-auto min-w-[10rem]'}
+            className={
+              'text-xs text-wrap w-[5rem] leading-[0.8rem] sm:text-[1rem] sm:p-[1.5rem] bg-appPrimary font-bold hover:bg-appSecondary mx-auto sm:min-w-[10rem]'
+            }
           >
             Verify phone number
           </Button>{' '}
