@@ -2,7 +2,7 @@ name: Deploy static content to Pages
 
 on:
   push:
-    branches: ['master']
+    branches: ['master'] # Change to your default branch if different
 
   workflow_dispatch:
 
@@ -22,20 +22,22 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Install dependencies
         run: npm install
 
       - name: Build project
-        run: npm run build
+        run: npm run build # Ensure this command outputs to the correct directory
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: List build directory
+        run: ls -la build # Adjust based on your build output directory
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
+        with:
+          path: './build' # Adjust based on your actual build output directory
 
       - name: Deploy to GitHub Pages
         id: deployment
