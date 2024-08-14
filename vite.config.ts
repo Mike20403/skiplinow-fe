@@ -17,5 +17,5 @@ export default defineConfig({
       },
     ],
   },
-  base: '/skiplinow-fe',
+  base: '/skiplinow-fe/',
 });
