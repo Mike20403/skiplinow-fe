@@ -33,6 +33,9 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
+  "build": {
+    "outDir": "build" // This should match the path used in your GitHub Actions workflow
+  },
   "include": [
     "src",
     "utilities",
