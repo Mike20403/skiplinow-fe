@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // authStore.ts
 import create from 'zustand';
 import { fetchOTPCode, verifyOTPCode } from '@/apis/auth/auth.api';
@@ -62,11 +63,10 @@ const useOTPStore = create(
       initializeStore: () => {
         const otpStore = localStorage.getItem('otp-store');
         const { state } = JSON.parse(otpStore || '{}');
-        const savedCredentials = state?.credentials
+        const savedCredentials = state?.credentials;
 
         if (savedCredentials) {
           set({ credentials: savedCredentials });
-
 
           if (savedCredentials.expiresAt && savedCredentials.expiresAt < Date.now()) {
             set({ credentials: { ...savedCredentials, accessCode: null } });
