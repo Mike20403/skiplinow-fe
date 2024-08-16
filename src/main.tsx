@@ -6,12 +6,11 @@ import { BrowserRouter } from 'react-router-dom';
 
 const queryClient = new QueryClient();
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename="">
-
-    <App />
+      <BrowserRouter basename="/skiplinow-fe">
+        <App />
       </BrowserRouter>
     </QueryClientProvider>
   </React.StrictMode>,

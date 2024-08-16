@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { SHARE_URL } from '@/constants/environment.constant.ts';
 import { useToast } from '@/components/ui/use-toast.ts';
 import { saveGeneratedCaptions, unsaveCaptions } from '@/apis/auth/services.api.ts';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export interface CaptionCardProps {
   idea?: string;
@@ -49,7 +49,6 @@ export const EntityCard = (props: CaptionCardProps) => {
           description: 'Caption saved successfully!!',
         });
         setIsLoading(false);
-        refresh();
       }
     } catch (e) {
       toast({
@@ -71,7 +70,6 @@ export const EntityCard = (props: CaptionCardProps) => {
           variant: 'success',
           description: 'Caption unsaved successfully!!',
         });
-        refresh();
       }
     } catch (e) {
       toast({

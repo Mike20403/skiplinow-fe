@@ -1,9 +1,14 @@
 import { ArrowLeftIcon, ArrowRightIcon } from 'lucide-react';
 import { SideBarLogo } from '../logo/SideBarLogo.tsx';
 import { Button } from '../ui/button.tsx';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { SideBarItem } from '@/components/navigation-bar/SideBarItem.tsx';
-import { ArrowLeftEndOnRectangleIcon, CubeTransparentIcon, UserIcon } from '@heroicons/react/16/solid';
+import {
+  ArrowLeftEndOnRectangleIcon,
+  CubeTransparentIcon,
+  UserIcon,
+  ChatBubbleLeftRightIcon,
+} from '@heroicons/react/16/solid';
 import { useNavigate } from 'react-router-dom';
 import useOTPStore from '@/stores/use-auth.store.ts';
 
@@ -22,6 +27,7 @@ export const SideBar = (props: SideBarProps) => {
   const items = [
     { id: 'services', icon: <CubeTransparentIcon />, title: 'Service', outlet: 'services' },
     { id: 'profile', icon: <UserIcon />, title: 'Profile', outlet: 'profile' },
+    { id: 'chatroom', icon: <ChatBubbleLeftRightIcon />, title: 'Chat room', outlet: 'chat-room' },
   ];
 
   const handleItemClick = useCallback((id: string) => {
@@ -30,7 +36,6 @@ export const SideBar = (props: SideBarProps) => {
   }, []);
 
   const handleLogout = useCallback(() => {
-    console.log('test');
     setCredentials({
       phoneNumber: '',
       accessCode: null,

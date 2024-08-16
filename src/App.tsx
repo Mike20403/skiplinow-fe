@@ -12,6 +12,7 @@ import { ChooseMediaPage } from '@/pages/services/start-from-scratch/ChooseMedia
 import { GetInpsiredPage } from '@/pages/services/get-inspired/GetInspiredPage.tsx';
 import SharePage from '@/pages/third-party/SharePage.tsx';
 import './index.css';
+import { ChatRoomPage } from './pages/chat-room/ChatRoomPage.tsx';
 
 function App() {
   return (
@@ -31,8 +32,8 @@ function App() {
             <Route path="medias" element={<ChooseMediaPage />} />
             <Route path="get-inspired" element={<GetInpsiredPage />} />
           </Route>
-
           <Route path="profile" element={<CaptionProfilePage />} />
+          <Route path="chatroom" element={<ChatRoomPage />} />
         </Route>
         <Route path="/share" element={<SharePage />} />
         <Route

@@ -35,6 +35,7 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
       const res = {
         message: true,
       }; //await fetchOTPCode(data.phoneNumber);
+
       toast({
         title: 'Success',
         variant: 'success',
