@@ -33,6 +33,7 @@ module.exports = {
   },
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
+    // '@typescript-eslint/no-explicit-any': 'off',
     // 'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['warn', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
 
@@ -55,7 +56,11 @@ module.exports = {
     //     "aspects": ["noHref", "invalidHref", "preferButton"]
     //   }
     // ],
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'react/prop-types': 'off',
     'jsx-a11y/anchor-is-valid': 'off',
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 };

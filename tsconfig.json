@@ -18,13 +18,16 @@
     "jsx": "react-jsx",
     "rootDir": "./",
     "baseUrl": "./",
-    // "typeRoots": [
-    //   "./types",
-    //   "./node_modules/@types"
-    // ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./types"
+    ],
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "*": [
+        "src/type/custom-types.d.ts"
       ]
     },
     /* Linting */
@@ -41,7 +44,7 @@
     "utilities",
     "stores",
     "actions",
-    "types"
+    "types/**/*.d.ts" // Ensure your custom type definitions are included
   ],
   "exclude": [
     "node_modules",
