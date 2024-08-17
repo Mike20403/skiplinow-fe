@@ -8,6 +8,7 @@ export interface Credentials {
   phoneNumber?: string;
   accessCode?: string | null;
   expiresAt?: number | null;
+  userId?: string;
 }
 
 interface OTPStoreState {
