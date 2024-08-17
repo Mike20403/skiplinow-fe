@@ -7,6 +7,8 @@ import { PhoneInput } from '../../components/inputs/PhoneInput.tsx';
 import { ArrowPathIcon } from '@heroicons/react/16/solid';
 import useOTPStore from '@/stores/use-auth.store.ts';
 import { useToast } from '../../components/ui/use-toast.ts';
+import { SMSRequestData } from '@/models/auth.model.ts';
+import { fetchOTPCode } from '@/apis/auth/auth.api.ts';
 
 export interface PhoneNumberFormProps {
   setToggleForm: (value: boolean) => void;
@@ -22,19 +24,17 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
     mode: 'onSubmit',
     resolver: yupResolver(phoneValidationSchema),
   });
-  const { setCredentials } = useOTPStore();
+  const { setCredentials, credentials } = useOTPStore();
   const { setToggleForm } = props;
   const [onVerificationSend, setOnVerificationSend] = useState(false);
   const { toast } = useToast();
 
-  const handleSMSSubmit = async (data: any) => {
+  const handleSMSSubmit = async (data: SMSRequestData) => {
     trigger('phoneNumber');
     setOnVerificationSend(true);
     //TODO call api to send verification code
     try {
-      const res = {
-        message: true,
-      }; //await fetchOTPCode(data.phoneNumber);
+      const res = await fetchOTPCode(data.phoneNumber);
 
       toast({
         title: 'Success',
@@ -42,22 +42,23 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
         description: 'Code sent successfully',
       });
 
-      if (res && res.message) {
+      if (res && res.message && res.result) {
         toast({
           title: 'Success',
           variant: 'success',
           description: res.message,
         });
 
+        setCredentials({ ...credentials, userId: res.result.id });
         setToggleForm(true);
       } else {
         throw new Error('Failed to send verification code');
       }
-    } catch (error: any) {
+    } catch (error) {
       toast({
         title: 'Error',
         variant: 'destructive',
-        description: error.message,
+        description: (error as any).message,
       });
     }
     setCredentials({ phoneNumber: data.phoneNumber });
@@ -78,7 +79,7 @@ export const PhoneNumberForm = (props: PhoneNumberFormProps) => {
         <div className="flex flex-col gap-4">
           <PhoneInput
             international={true}
-            {...register('phoneNumber', { required: true })}
+            {...(register('phoneNumber', { required: true }) as any)}
             numberInputProps={{
               onKeyDown: handleKeyDown,
               className: `${errors.phoneNumber ? 'border-red-500 focus:ring-red-500 focus:border-red-500' : ''}

@@ -16,12 +16,12 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 type PhoneInputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange' | 'value'> &
   Omit<RPNInput.Props<typeof RPNInput.default>, 'onChange'> & {
-    onChange?: (value: RPNInput.Value) => void;
+    onChange?: (value: RPNInput.Value | '') => void;
     [props: string]: any;
   };
 
 const PhoneInput: React.ForwardRefExoticComponent<PhoneInputProps> = React.forwardRef<
-  React.ElementRef<typeof RPNInput.default>,
+  Omit<React.ElementRef<typeof RPNInput.default>, 'onChange'>,
   PhoneInputProps
 >(({ className, onChange, ...props }, ref) => {
   return (

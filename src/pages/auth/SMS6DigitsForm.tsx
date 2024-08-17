@@ -34,10 +34,15 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
   const handleSMSVerify = async (data: any) => {
     //TODO call api to send verification code
     try {
-      const res = await verifyOTPCode(credentials?.phoneNumber, data.smsCode);
+      const res = await verifyOTPCode(credentials.userId, credentials?.phoneNumber, data.smsCode);
 
       if (res && res.result) {
-        setCredentials({ ...credentials, accessCode: res.result.accessCode, expiresAt: res.result.expiresAt });
+        setCredentials({
+          ...credentials,
+          userId: res.result.userId,
+          accessCode: res.result.accessCode,
+          expiresAt: res.result.expiresAt,
+        });
         toast({
           title: 'Success',
           variant: 'success',
@@ -45,7 +50,7 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
         });
         navigate('/');
       }
-    } catch (error: unknown) {
+    } catch (error: any) {
       toast({
         title: 'Error',
         variant: 'destructive',
@@ -54,7 +59,7 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
     }
   };
 
-  const handleResendCode = (e: any) => {
+  const handleResendCode = () => {
     setIsCountDown(true);
     if (intervalId) {
       clearInterval(intervalId);
@@ -81,13 +86,13 @@ export const SMS6DigitsForm = (props: SMS6DigitsFormProps) => {
   return (
     <>
       <p className="text-xs text-[text-gray-400]">
-        A 6-digits code was sent to {maskPhoneNumber(credentials.phoneNumber)}
+        A 6-digits code was sent to {maskPhoneNumber(credentials.phoneNumber || 'xxxxxxxxxx')}
       </p>
       <form className="flex flex-col gap-[4rem] max-w-[30rem] smsauth-form" onSubmit={handleSubmit(handleSMSVerify)}>
         <div className="flex gap-4 flex-col">
           <p className="text-[1rem] font-bold">One-Time password:</p>
           <div className="flex flex-row justify-between items-center gap-4 max-w-full ">
-            <InputOTP {...register('smsCode')} maxLength={6}>
+            <InputOTP {...(register('smsCode') as any)} maxLength={6}>
               <InputOTPGroup>
                 <InputOTPSlot className="w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[3rem]" index={0} />
                 <InputOTPSlot className="w-[2rem] h-[2rem] sm:w-[4rem] sm:h-[3rem]" index={1} />
